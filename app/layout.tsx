@@ -3,6 +3,9 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { Nunito } from 'next/font/google';
 import { Navbar } from '@/app/components/navbar/navbar';
+import { Modal } from '@/app/components/modals/modal';
+import { RegisterModal } from '@/app/components/modals/register-modal';
+import ToasterProvider from '@/app/providers/toaster-provider';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -35,6 +38,8 @@ export default function RootLayout({
         // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         className={` ${nunito.className} antialiased`}
       >
+        <ToasterProvider />
+        <RegisterModal />
         <Navbar />
         {children}
       </body>
