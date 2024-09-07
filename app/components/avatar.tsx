@@ -2,7 +2,11 @@
 
 import Image from 'next/image';
 
-export const Avatar = () => {
+interface AvatarProps {
+  src?: string | null;
+}
+
+export const Avatar = ({ src }: AvatarProps) => {
   return (
     <div>
       <Image
@@ -10,7 +14,7 @@ export const Avatar = () => {
         height={30}
         width={30}
         alt="avatar"
-        src="Avatar_Male.svg"
+        src={src || `Avatar_Male.svg`}
       />
     </div>
   );
