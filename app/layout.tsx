@@ -6,6 +6,7 @@ import { Navbar } from '@/app/components/navbar/navbar';
 import { Modal } from '@/app/components/modals/modal';
 import { RegisterModal } from '@/app/components/modals/register-modal';
 import ToasterProvider from '@/app/providers/toaster-provider';
+import { LoginModal } from '@/app/components/modals/login-modal';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -40,6 +41,7 @@ export default function RootLayout({
       >
         <ToasterProvider />
         <RegisterModal />
+        <LoginModal />
         <Navbar />
         {children}
       </body>
