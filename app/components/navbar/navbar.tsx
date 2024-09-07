@@ -1,5 +1,6 @@
 import { getCurrentUser } from '@/app/actions/getCurrentUser';
 import { Container } from '@/app/components/container';
+import { Categories } from '@/app/components/navbar/categories';
 import { Logo } from '@/app/components/navbar/logo';
 import { Search } from '@/app/components/navbar/search';
 import { UserMenu } from '@/app/components/navbar/user-menu';
@@ -18,6 +19,7 @@ export const Navbar = async () => {
           </div>
         </Container>
       </div>
+      <Categories />
     </div>
   );
 };

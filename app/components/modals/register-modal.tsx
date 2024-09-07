@@ -7,6 +7,7 @@ import { Modal } from '@/app/components/modals/modal';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -15,6 +16,8 @@ import { FcGoogle } from 'react-icons/fc';
 
 export const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -42,6 +45,7 @@ export const RegisterModal = () => {
       })
       .finally(() => {
         setIsLoading(false);
+        router.refresh();
       });
   };
 
