@@ -2,7 +2,7 @@ import { getCurrentUser } from '@/app/actions/getCurrentUser';
 import { Container } from '@/app/components/container';
 import { Logo } from '@/app/components/navbar/logo';
 import { Search } from '@/app/components/navbar/search';
-import { UserMenu } from '@/app/components/navbar/user-menut';
+import { UserMenu } from '@/app/components/navbar/user-menu';
 
 export const Navbar = async () => {
   const currentUser = await getCurrentUser();
@@ -14,7 +14,7 @@ export const Navbar = async () => {
           <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
             <Logo />
             <Search />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>
