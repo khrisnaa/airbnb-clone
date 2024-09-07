@@ -4,6 +4,7 @@ import { Button } from '@/app/components/button';
 import { Heading } from '@/app/components/heading';
 import { Input } from '@/app/components/inputs/input';
 import { Modal } from '@/app/components/modals/modal';
+import useLoginModal from '@/app/hooks/useLoginModal';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
@@ -16,6 +17,7 @@ import { FcGoogle } from 'react-icons/fc';
 
 export const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -48,6 +50,11 @@ export const RegisterModal = () => {
         router.refresh();
       });
   };
+
+  const toggleModal = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -100,7 +107,10 @@ export const RegisterModal = () => {
       <div className="mt-4 text-center font-light text-neutral-500">
         <div className="flex flex-row items-center justify-center gap-2">
           <div>Already have an account?</div>
-          <div className="cursor-pointer text-neutral-800 hover:underline">
+          <div
+            onClick={toggleModal}
+            className="cursor-pointer text-neutral-800 hover:underline"
+          >
             Log in
           </div>
         </div>
