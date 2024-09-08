@@ -5,6 +5,7 @@ import { CategoryInput } from '@/app/components/inputs/category-input';
 import { Counter } from '@/app/components/inputs/counter';
 import { CountrySelect } from '@/app/components/inputs/country-select';
 import { ImageUpload } from '@/app/components/inputs/image-upload';
+import { Input } from '@/app/components/inputs/input';
 import { Modal } from '@/app/components/modals/modal';
 import { categories } from '@/app/components/navbar/categories';
 import useRentModal from '@/app/hooks/useRentModal';
@@ -25,6 +26,7 @@ export const RentModal = () => {
   const rentModal = useRentModal();
 
   const [step, setStep] = useState(STEPS.CATEGORY);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -169,6 +171,54 @@ export const RentModal = () => {
         <ImageUpload
           value={imageUrl}
           onChange={(value) => setCustomValue('imageUrl', value)}
+        />
+      </div>
+    );
+  }
+
+  if (step === STEPS.DESCRIPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="How would you describe your place?"
+          subtitle="Shoet and sweet works best"
+        />
+        <Input
+          id="title"
+          label="Title"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <Input
+          id="description"
+          label="Description"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
+  }
+
+  if (step === STEPS.PRICE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Now, set your price"
+          subtitle="How much do you charge per night?"
+        />
+        <Input
+          id="price"
+          label="Price"
+          formatPrice
+          type="number"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
         />
       </div>
     );
