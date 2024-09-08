@@ -42,3 +42,11 @@ body,
     text-wrap: balance;
   }
 }
+
+.leaftlet-bottom,
+.leaftlet-control,
+.leaftlet-pane,
+.leaftlet-top {
+  position: absolute;
+  z-index: 0 !important;
+}
