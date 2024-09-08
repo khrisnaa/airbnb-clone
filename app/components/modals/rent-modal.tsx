@@ -2,6 +2,7 @@
 
 import { Heading } from '@/app/components/heading';
 import { CategoryInput } from '@/app/components/inputs/category-input';
+import { Counter } from '@/app/components/inputs/counter';
 import { CountrySelect } from '@/app/components/inputs/country-select';
 import { Modal } from '@/app/components/modals/modal';
 import { categories } from '@/app/components/navbar/categories';
@@ -47,6 +48,9 @@ export const RentModal = () => {
 
   const category = watch('category');
   const location = watch('location');
+  const guestCount = watch('guestCount');
+  const roomCount = watch('roomCount');
+  const bathroomCount = watch('bathroomCount');
 
   const Map = dynamic(() => import('@/app/components/map'), { ssr: false });
 
@@ -120,6 +124,35 @@ export const RentModal = () => {
         <div className="!z-0">
           <Map center={location?.latlng} />
         </div>
+      </div>
+    );
+  }
+
+  if (step === STEPS.INFO) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Share some basics about your place"
+          subtitle="What amenities do you have?"
+        />
+        <Counter
+          title="Guest"
+          subtitle="How many guests do you allow"
+          value={guestCount}
+          onChange={(value) => setCustomValue('guestCount', value)}
+        />
+        <Counter
+          title="Room"
+          subtitle="How many rooms do you have"
+          value={roomCount}
+          onChange={(value) => setCustomValue('roomCount', value)}
+        />
+        <Counter
+          title="Bathroom"
+          subtitle="How many bathrooms do you have"
+          value={bathroomCount}
+          onChange={(value) => setCustomValue('bathroomCount', value)}
+        />
       </div>
     );
   }
