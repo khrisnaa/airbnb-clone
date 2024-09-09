@@ -45,7 +45,7 @@ export default function RootLayout({
         <LoginModal />
         <RentModal />
         <Navbar />
-        {children}
+        <div className="pb-24 pt-24">{children}</div>
       </body>
     </html>
   );
