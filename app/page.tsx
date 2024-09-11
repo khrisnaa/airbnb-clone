@@ -4,8 +4,12 @@ import { Container } from '@/app/components/container';
 import { EmptyState } from '@/app/components/empty-state';
 import { ListingCard } from '@/app/components/listings/listing-card';
 
-export default async function Home() {
-  const listings = await getListings();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { userId: string };
+}) {
+  const listings = await getListings(searchParams.userId);
   const currentUser = await getCurrentUser();
 
   if (listings.length == 0) {
