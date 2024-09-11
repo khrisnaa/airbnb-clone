@@ -3,28 +3,25 @@
 import { Container } from '@/app/components/container';
 import { Heading } from '@/app/components/heading';
 import { ListingCard } from '@/app/components/listings/listing-card';
-import { Listing, Prisma, Reservation, User } from '@prisma/client';
+import { ReservationData } from '@/app/trips/trips-client';
+import { User } from '@prisma/client';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
 
-export type ReservationData = Prisma.ReservationGetPayload<{
-  include: { listing: true };
-}>;
-
-interface TripsClientProps {
+interface ReservationClientProps {
   reservations: ReservationData[];
-  currentUser: User | null;
+  currentUser?: User | null;
 }
 
-export const TripsClient = ({
+export const ReservationClient = ({
   reservations,
   currentUser,
-}: TripsClientProps) => {
+}: ReservationClientProps) => {
   const router = useRouter();
 
-  const [deletindId, setDeletingId] = useState('');
+  const [deletingId, setDeletingId] = useState('');
 
   const onCancel = useCallback(
     (id: string) => {
@@ -36,8 +33,8 @@ export const TripsClient = ({
           toast.success('Reservation cancelled');
           router.refresh();
         })
-        .catch((error) => {
-          toast.error(error.response.data.error);
+        .catch(() => {
+          toast.error('Something went wrong');
         })
         .finally(() => {
           setDeletingId('');
@@ -45,12 +42,10 @@ export const TripsClient = ({
     },
     [router],
   );
+
   return (
     <Container>
-      <Heading
-        title="Trips"
-        subtitle="Where you've been and where you're going"
-      />
+      <Heading title="Reservations" subtitle="Bookings on your properties" />
       <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {reservations.map((reservation) => (
           <ListingCard
@@ -59,8 +54,8 @@ export const TripsClient = ({
             reservation={reservation}
             actionId={reservation.id}
             onAction={onCancel}
-            disabled={deletindId == reservation.id}
-            actionLabel="Cancel reservation"
+            disabled={deletingId == reservation.id}
+            actionLabel="Cancel guest reservation"
             currentUser={currentUser}
           />
         ))}
