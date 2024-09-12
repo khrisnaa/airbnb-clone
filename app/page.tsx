@@ -9,7 +9,7 @@ export default async function Home({
 }: {
   searchParams: { userId: string };
 }) {
-  const listings = await getListings(searchParams.userId);
+  const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
 
   if (listings.length == 0) {

@@ -11,7 +11,7 @@ const Page = async () => {
     return <EmptyState title="Unauthorized" subtitle="Please login" />;
   }
 
-  const listings = await getListings(currentUser.id);
+  const listings = await getListings({ userId: currentUser.id });
 
   if (listings.length === 0) {
     return (
